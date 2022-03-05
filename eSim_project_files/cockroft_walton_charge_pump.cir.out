@@ -1,0 +1,24 @@
+* c:\users\prana\esim-workspace\cockroft_walton_charge_pump\cockroft_walton_charge_pump.cir
+
+.include NMOS-180nm.lib
+m1 gnd gnd net-_c1-pad1_ gnd CMOSN W=100u L=100u M=1
+m2 net-_c1-pad1_ net-_c1-pad1_ net-_c2-pad1_ gnd CMOSN W=100u L=100u M=1
+m3 net-_c2-pad1_ net-_c2-pad1_ net-_c3-pad1_ gnd CMOSN W=100u L=100u M=1
+m4 net-_c3-pad1_ net-_c3-pad1_ out gnd CMOSN W=100u L=100u M=1
+c1  net-_c1-pad1_ in 1u
+c2  net-_c2-pad1_ gnd 1u
+c3  net-_c3-pad1_ net-_c1-pad1_ 1u
+c4  out net-_c2-pad1_ 1u
+* u1  in plot_v1
+* u2  out plot_v1
+v1  in gnd sine(0 12 5 0 0)
+.tran 1e-03 20e-00 0e-00
+
+* Control Statements 
+.control
+run
+print allv > plot_data_v.txt
+print alli > plot_data_i.txt
+plot v(in)  v(out)+20
+.endc
+.end
